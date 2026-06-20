@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import AboutSection from '../components/AboutSection.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import ProjectModal from '../components/ProjectModal.astro';
 import { projects } from '../data/projects';
 import '../styles/global.css';
 
@@ -46,4 +47,12 @@ const displayedProjects = projects.slice(0, 4);
       </div>
     </section>
   </main>
+
+  {isModalOpen && selectedProject && (
+    <ProjectModal 
+      project={selectedProject} 
+      isOpen={isModalOpen} 
+      onClose={closeModal} 
+    />
+  )}
 </Layout>

@@ -1,0 +1,131 @@
+---
+import type { Project } from '../types/project';
+
+export interface Props {
+  project: Project;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const { project, isOpen, onClose } = Astro.props;
+
+if (!isOpen) return null;
+
+function handleBackdropClick(event: MouseEvent) {
+  if ((event.target as HTMLElement).closest('.modal-backdrop')) {
+    onClose();
+  }
+}
+---
+
+<div 
+  class="modal-backdrop fixed inset-0 bg-overlay backdrop-blur-sm z-[60] flex items-center justify-center p-4"
+  onclick={handleBackdropClick}
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="bg-surface rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in">
+    <!-- Close Button -->
+    <button 
+      class="absolute top-4 right-4 text-text-muted hover:text-primary transition-colors"
+      onclick={onClose}
+      aria-label="Close modal"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Modal Content -->
+    <div class="p-8">
+      {/* Title */}
+      <h2 class="text-2xl font-semibold text-text-primary mb-2">
+        {project.name}
+      </h2>
+      
+      {/* Category Badge */}
+      <span class="inline-block bg-primary/10 text-primary text-xs px-3 py-1 rounded-full mb-4">
+        {project.category}
+      </span>
+
+      {/* Problem & Solution */}
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-text-secondary uppercase tracking-wide mb-2">Problem</h3>
+        <p class="text-text-secondary">{project.problem}</p>
+      </div>
+
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-text-secondary uppercase tracking-wide mb-2">Solution</h3>
+        <p class="text-text-secondary">{project.solution}</p>
+      </div>
+
+      {/* Tech Stack */}
+      <div class="mb-6">
+        <h3 class="text-sm font-semibold text-text-secondary uppercase tracking-wide mb-3">Tech Stack</h3>
+        <div class="flex flex-wrap gap-2">
+          {project.techStack.map((tech) => (
+            <span class="bg-surface text-text-primary text-sm px-3 py-1 rounded border border-border">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Impact */}
+      <div class="mb-8">
+        <h3 class="text-sm font-semibold text-text-secondary uppercase tracking-wide mb-2">Impact</h3>
+        <p class="text-text-secondary">{project.impact}</p>
+      </div>
+
+      {/* CTAs */}
+      <div class="flex flex-col gap-3">
+        <a 
+          href="#contact" 
+          class="w-full text-center bg-primary hover:bg-cyan-600 text-white rounded-md px-6 py-3 font-medium transition-colors duration-200"
+          onclick={(e) => {
+            e.preventDefault();
+            onClose();
+            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          Contact for Similar Project
+        </a>
+
+        <a 
+          href={project.githubUrl} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="w-full text-center border border-primary text-primary hover:bg-primary hover:text-white rounded-md px-6 py-3 font-medium transition-colors duration-200"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-backdrop {
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
