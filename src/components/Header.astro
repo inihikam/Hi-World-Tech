@@ -1,0 +1,43 @@
+---
+import { Github, Linkedin } from 'lucide-astro';
+---
+
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="font-mono text-xl font-bold text-text-primary">
+        Hi-World Tech
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#about" class="text-text-secondary hover:text-primary transition-colors duration-200">About</a>
+        <a href="#projects" class="text-text-secondary hover:text-primary transition-colors duration-200">Projects</a>
+        <a href="#contact" class="text-text-secondary hover:text-primary transition-colors duration-200">Contact</a>
+      </nav>
+
+      <!-- Social Icons -->
+      <div class="flex items-center space-x-4">
+        <a 
+          href="https://github.com/inihikam" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          class="text-text-secondary hover:text-primary transition-colors duration-200"
+        >
+          <Github size={20} />
+        </a>
+        <a 
+          href="https://www.linkedin.com/in/muhammad-maulana-hikam-38105b1b8" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          class="text-text-secondary hover:text-primary transition-colors duration-200"
+        >
+          <Linkedin size={20} />
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
