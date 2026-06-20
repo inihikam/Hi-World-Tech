@@ -1,0 +1,74 @@
+---
+import type { Project } from '../data/projects';
+import ProjectCard from './ProjectCard.astro';
+
+export interface Props {
+  projects: Project[];
+  onSelect: (project: Project) => void;
+}
+
+const { projects, onSelect } = Astro.props;
+
+// Extract unique categories for filters
+const categories = ['All', 'Web Apps', 'APIs', 'AI/ML', 'Systems'];
+
+let visibleCount = 4;
+let activeFilter = 'All';
+
+function toggleExpand() {
+  visibleCount = visibleCount === 4 ? projects.length : 4;
+}
+
+function filterByCategory(category) {
+  activeFilter = category;
+  visibleCount = 4; // Reset to hero count when filtering
+}
+
+function getFilteredProjects() {
+  if (activeFilter === 'All') {
+    return projects.slice(0, visibleCount);
+  }
+  const filtered = projects.filter(p => p.category === activeFilter);
+  return filtered.slice(0, visibleCount === 4 ? 4 : filtered.length);
+}
+
+const displayedProjects = getFilteredProjects();
+const hasMore = visibleCount < projects.length;
+---
+
+<div class="max-w-7xl mx-auto">
+  <!-- Filter Tabs -->
+  <div class="flex flex-wrap justify-center gap-2 mb-12">
+    {categories.map((category) => (
+      <button
+        class={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+          activeFilter === category
+            ? 'bg-primary text-white'
+            : 'bg-surface text-text-secondary hover:bg-primary/20'
+        }`}
+        onclick={() => filterByCategory(category)}
+      >
+        {category}
+      </button>
+    ))}
+  </div>
+
+  <!-- Project Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    {displayedProjects.map((project) => (
+      <ProjectCard project={project} onClick={() => onSelect(project)} />
+    ))}
+  </div>
+
+  <!-- View More Button -->
+  {hasMore && (
+    <div class="text-center">
+      <button
+        class="btn-outline"
+        onclick={toggleExpand}
+      >
+        {visibleCount === 4 ? 'View More Projects' : 'Show Less'}
+      </button>
+    </div>
+  )}
+</div>
