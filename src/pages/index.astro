@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
 import '../styles/global.css';
 ---
 
@@ -8,9 +9,10 @@ import '../styles/global.css';
   <Header />
   
   <main>
+    <Hero />
+    
     <div class="section-padding text-center">
-      <h1>Coming Soon</h1>
-      <p class="mt-4 text-text-secondary">Building amazing things for startups and UMKM.</p>
+      <h1 id="projects">Projects</h1>
     </div>
   </main>
 </Layout>
