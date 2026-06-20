@@ -10,12 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.0.0",
     "lucide-astro": "^0.438.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "^11.0.0",
+    "@astrojs/cloudflare": "^8.1.0",
     "@fontsource/inter": "^5.0.20",
     "@fontsource/jetbrains-mono": "^5.0.19",
     "autoprefixer": "^10.4.20",
