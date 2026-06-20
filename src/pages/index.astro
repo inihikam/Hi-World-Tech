@@ -3,7 +3,24 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import AboutSection from '../components/AboutSection.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
 import '../styles/global.css';
+
+let selectedProject = null;
+let isModalOpen = false;
+
+function openProject(project) {
+  selectedProject = project;
+  isModalOpen = true;
+}
+
+function closeModal() {
+  isModalOpen = false;
+  selectedProject = null;
+}
+
+const displayedProjects = projects.slice(0, 4);
 ---
 
 <Layout title="Hi-World Tech | Freelance IT Solutions">
@@ -17,6 +34,16 @@ import '../styles/global.css';
       <h2 class="text-3xl md:text-4xl font-bold text-center text-text-primary mb-12">
         Projects
       </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {displayedProjects.map((project) => (
+          <ProjectCard project={project} onClick={() => openProject(project)} />
+        ))}
+      </div>
+      
+      <div class="text-center">
+        <button class="btn-outline">View More Projects</button>
+      </div>
     </section>
   </main>
 </Layout>

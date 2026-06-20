@@ -1,0 +1,64 @@
+---
+import type { Project } from '../types/project';
+
+export interface Props {
+  project: Project;
+  onClick: () => void;
+}
+
+const { project, onClick } = Astro.props;
+---
+
+<div 
+  class="bg-surface rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group"
+  onclick={onClick}
+>
+  <div class="p-6">
+    <!-- Title -->
+    <h3 class="text-xl font-semibold text-text-primary mb-2">
+      {project.name}
+    </h3>
+    
+    <!-- Short Description -->
+    <p class="text-text-secondary text-sm mb-4">
+      {project.shortDescription}
+    </p>
+
+    <!-- Tech Stack Badges -->
+    <div class="flex flex-wrap gap-2 mb-4">
+      {project.techStack.slice(0, 3).map((tech) => (
+        <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded">
+          {tech}
+        </span>
+      ))}
+      {project.techStack.length > 3 && (
+        <span class="text-text-muted text-xs px-2 py-1">
+          +{project.techStack.length - 3} more
+        </span>
+      )}
+    </div>
+
+    <!-- Hover Reveal Content -->
+    <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <p class="text-text-secondary text-sm mb-4">
+        {project.fullDescription}
+      </p>
+      
+      <button class="w-full btn-primary text-sm">
+        View Project
+      </button>
+    </div>
+
+    <!-- GitHub Stats -->
+    <div class="flex items-center gap-4 mt-4 text-text-muted text-sm">
+      <span>⭐ {project.stars}</span>
+      <span>🔽 {project.forks}</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .group:hover {
+    transform: translateY(-4px);
+  }
+</style>
