@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import AboutSection from '../components/AboutSection.astro';
 import '../styles/global.css';
 ---
 
@@ -10,9 +11,12 @@ import '../styles/global.css';
   
   <main>
     <Hero />
+    <AboutSection />
     
-    <div class="section-padding text-center">
-      <h1 id="projects">Projects</h1>
-    </div>
+    <section id="projects" class="section-padding">
+      <h2 class="text-3xl md:text-4xl font-bold text-center text-text-primary mb-12">
+        Projects
+      </h2>
+    </section>
   </main>
 </Layout>
