@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Hi-World Tech | Freelance IT Solutions' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Muhammad Maulana Hikam" />
+    <link rel="canonical" href="https://hiworld.tech" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hiworld.tech" />
+    <meta property="og:image" content="https://hiworld.tech/og-image.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://hiworld.tech/og-image.png" />
+
+    <!-- Fonts Preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={`
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Muhammad Maulana Hikam",
+        "jobTitle": "Freelance Developer",
+        "url": "https://hiworld.tech",
+        "sameAs": [
+          "https://github.com/inihikam",
+          "https://www.linkedin.com/in/muhammad-maulana-hikam-38105b1b8"
+        ]
+      }
+    `} />
+  </head>
+  <body class="bg-background min-h-screen">
+    <slot />
+  </body>
+</html>
